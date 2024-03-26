@@ -1,0 +1,64 @@
+@startuml
+!theme plain
+
+class ETLSystem {
+    +initializeSystem()
+    +runETLProcess()
+}
+
+class PluginManager {
+    +loadPlugin(pluginName: String)
+    +unloadPlugin(pluginName: String)
+    +listPlugins(): List
+}
+
+class DataSourceInterface {
+    {abstract} +extractData()
+    {abstract} +transformData(rawData: Data)
+    {abstract} +loadData(processedData: Data)
+}
+
+class WebDataSource {
+    +extractData()
+    +transformData(rawData: Data)
+    +loadData(processedData: Data)
+}
+
+class APIDataSource {
+    +extractData()
+    +transformData(rawData: Data)
+    +loadData(processedData: Data)
+}
+
+class DBDataSource {
+    +extractData()
+    +transformData(rawData: Data)
+    +loadData(processedData: Data)
+}
+
+class DataProcessor {
+    +cleanData(data: Data)
+    +aggregateData(data: Data): Data
+}
+
+class DataVisualizer {
+    +generateChart(data: Data)
+    +displayDashboard(data: Data)
+}
+
+ETLSystem --> PluginManager : uses
+PluginManager --> DataSourceInterface : manages
+DataSourceInterface <|-- WebDataSource
+DataSourceInterface <|-- APIDataSource
+DataSourceInterface <|-- DBDataSource
+ETLSystem --> DataProcessor : uses
+ETLSystem --> DataVisualizer : uses
+
+@enduml
+
+' ETLSystem: The main class to initialize and run the ETL process.
+' PluginManager: Manages the loading, unloading, and listing of data source plugins.
+' DataSourceInterface: An abstract class that defines the methods each data source plugin must implement: extractData, transformData, and loadData.
+' WebDataSource, APIDataSource, DBDataSource: Concrete implementations of DataSourceInterface for different types of data sources.
+' DataProcessor: Provides data cleaning and aggregation services.
+' DataVisualizer: Responsible for generating visualizations and displaying dashboards based on processed data.

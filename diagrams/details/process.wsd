@@ -1,0 +1,30 @@
+@startuml
+!theme plain
+
+package "ETL System" {
+    [Plugin Manager] as PM
+    [Data Source Plugins] as DSP
+    [Data Processor] as DP
+    [Data Loader] as DL
+    [Data Storage] as DS
+    [ETL Controller] as ETC
+    [Data Models] as DM
+    [Data Access Object] as DAO
+    [User Interface] as UI
+    [Scheduler] as S
+    [Monitoring & Alerts] as MA
+}
+
+PM -right-> DSP : "manages"
+DSP -down-> DP : "extracts data"
+DP -right-> DL : "transforms data"
+DL -down-> DS : "loads data"
+ETC -up-> PM : "orchestrates"
+ETC -right-> S : "schedules tasks"
+DS -left-> DM : "stores data"
+DM -left-> DAO : "abstracts access"
+UI -up-> ETC : "user interactions"
+UI -right-> MA : "displays alerts"
+MA -down-> DS : "monitors data flow"
+
+@enduml

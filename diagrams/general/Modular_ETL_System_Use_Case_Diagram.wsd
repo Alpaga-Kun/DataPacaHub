@@ -1,0 +1,29 @@
+@startuml
+!theme plain
+
+left to right direction
+actor User as user
+rectangle "Modular ETL System" {
+  usecase "Select Data Source" as UC1
+  usecase "Add Data Source Plugin" as UC2
+  usecase "Remove Data Source Plugin" as UC3
+  usecase "Extract Data" as UC4
+  usecase "Process Data" as UC5
+  usecase "Visualize Data" as UC6
+}
+
+user --> UC1 : Interacts
+user --> UC2 : Requests
+user --> UC3 : Requests
+user --> UC4 : Initiates
+user --> UC5 : Initiates
+user --> UC6 : Requests
+
+@enduml
+
+' Select Data Source: Users can select from available data source plugins for their ETL tasks.
+' Add Data Source Plugin: Users have the ability to add new plugins to the system for extracting data from new sources.
+' Remove Data Source Plugin: Similarly, users can remove existing plugins if they are no longer needed.
+' Extract Data: Once data sources are selected, users can initiate the data extraction process.
+' Process Data: After extraction, data can be processed or transformed to meet the requirements for analysis.
+' Visualize Data: Finally, users can request visualization of the processed data to gain insights and inform decision-making.

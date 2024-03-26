@@ -1,0 +1,49 @@
+@startuml
+!theme plain
+
+actor User as user
+participant "ETL System" as system
+participant "Plugin Manager" as manager
+participant "DataSource Interface" as datasource
+participant "Data Source Plugin\n(e.g., WebPage, API, DB)" as plugin
+participant "Data Processing" as processing
+participant "Data Visualization" as visualization
+
+user -> system : Initialize ETL System
+activate system
+
+system -> manager : Load Plugin Manager
+activate manager
+
+user -> manager : Select Data Source
+activate plugin
+manager -> plugin : Load Selected Plugin(s)
+deactivate plugin
+
+user -> plugin : Add/Remove Data Source Plugin
+note right: Optional Step
+
+plugin -> datasource : Extract Data
+activate datasource
+datasource -> plugin : Return Raw Data
+deactivate datasource
+
+plugin -> processing : Process/Transform Data
+activate processing
+processing -> plugin : Return Processed Data
+deactivate processing
+
+plugin -> visualization : Visualize Data
+activate visualization
+visualization -> user : Display Data Insights
+deactivate visualization
+
+deactivate manager
+deactivate system
+@enduml
+
+' Initialization: The user starts the ETL system, which then loads the Plugin Manager.
+' Plugin Management: The user interacts with the Plugin Manager to select the data sources they wish to use. This includes the ability to add or remove data source plugins as needed.
+' Data Extraction: The selected plugins extract raw data from their respective sources.
+' Data Processing: The extracted data is then processed or transformed to improve its quality and make it usable for analysis.
+' Data Visualization: Finally, the processed data is visualized to provide insights, which can inform decision-making processes.

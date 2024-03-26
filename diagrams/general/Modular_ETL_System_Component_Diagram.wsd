@@ -1,0 +1,35 @@
+@startuml
+!theme plain
+
+package "Modular ETL System" {
+    [ETL Controller] as ETL
+    [Plugin Manager] as Manager
+    [Data Source Plugins] as Plugins
+    [Data Processor] as Processor
+    [Data Visualizer] as Visualizer
+    [Configuration Manager] as Config
+    database "Data Storage" as Storage
+}
+
+[User Interface] as UI
+
+UI ..> ETL : Initiates\nCommands
+ETL ..> Manager : Load/Unload\nPlugins
+ETL ..> Config : Read/Write\nSettings
+Manager ..> Plugins : Manage\nData Sources
+Plugins ..> Processor : Send\nExtracted Data
+Processor ..> Storage : Save\nProcessed Data
+Storage ..> Visualizer : Provide\nData for Visualization
+Visualizer ..> UI : Display\nVisual Insights
+
+@enduml
+
+' Modular ETL System: The main container that encompasses all the components of the ETL system.
+' ETL Controller: Acts as the central point of control for the ETL process, managing the flow from data extraction to visualization.
+' Plugin Manager: Responsible for managing the lifecycle of data source plugins, including loading and unloading as needed.
+' Data Source Plugins: Represent individual sources from which data can be extracted, such as web pages, APIs, or databases.
+' Data Processor: Processes and transforms the raw data extracted by the plugins into a format suitable for analysis and storage.
+' Data Visualizer: Generates visual representations of the processed data to aid in analysis and decision-making.
+' Configuration Manager: Handles system configuration settings, allowing dynamic adjustments to the ETL process.
+' Data Storage: The database or data lake where processed data is stored.
+' User Interface (UI): The interface through which users interact with the ETL system, initiating processes, and viewing visualizations.

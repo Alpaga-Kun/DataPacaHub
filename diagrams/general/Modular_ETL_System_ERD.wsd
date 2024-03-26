@@ -1,0 +1,50 @@
+@startuml
+!theme plain
+
+entity "Data Source" {
+    * id : int
+    * name : varchar
+    * type : varchar
+    --
+    + details : text
+}
+
+entity "Extracted Data" {
+    * id : int
+    * source_id : int
+    --
+    + extraction_date : datetime
+    + raw_data : blob
+}
+
+entity "Processed Data" {
+    * id : int
+    * extracted_data_id : int
+    --
+    + processing_date : datetime
+    + processed_data : blob
+}
+
+entity "Visualization" {
+    * id : int
+    * processed_data_id : int
+    --
+    + creation_date : datetime
+    + visualization_type : varchar
+    + visualization_details : text
+}
+
+"Data Source" ||--o{ "Extracted Data" : "is extracted from"
+"Extracted Data" ||--o{ "Processed Data" : "is processed into"
+"Processed Data" ||--o{ "Visualization" : "is visualized in"
+
+@enduml
+
+' Data Source: Represents the sources from which data is extracted. Attributes include a unique ID, name, type (e.g., API, Database, Web), and details about the data source.
+' Extracted Data: Contains details about the data extracted from various sources. It includes a unique ID, a reference to the Data Source ID (source_id), the date of extraction, and the raw data blob.
+' Processed Data: Stores information about data after it has been processed or transformed. Attributes include a unique ID, a reference to the Extracted Data ID (extracted_data_id), the date of processing, and the processed data blob.
+' Visualization: Details about the visualizations created from processed data. It includes a unique ID, a reference to the Processed Data ID (processed_data_id), the creation date, the type of visualization, and additional details.
+
+' A Data Source can have multiple Extracted Data records (one-to-many relationship).
+' Each Extracted Data record can be transformed into multiple Processed Data records (one-to-many relationship).
+' Each Processed Data record can be used in multiple Visualizations (one-to-many relationship).
