@@ -1,17 +1,16 @@
 from abc import ABC, abstractmethod
 
-class PluginInterface(ABC):
+class ExtractInterface(ABC):
     @abstractmethod
     def extract(self, params):
-        """Extrait les données de la source."""
         pass
 
+class TransformInterface(ABC):
     @abstractmethod
     def transform(self, data):
-        """Transforme les données extraites."""
         pass
 
+class LoadInterface(ABC):
     @abstractmethod
     def load(self, data):
-        """Charge les données transformées dans la destination."""
         pass

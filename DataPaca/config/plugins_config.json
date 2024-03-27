@@ -1,0 +1,30 @@
+{
+    "extractors": [
+        {
+            "id": "csv_datasource",
+            "class_path": "plugins.files.csv_data_source.CSVDataSource",
+            "params": {
+                "filename": "data/csv/healthcare_dataset.csv",
+                "delimiter": ",",
+                "encoding": "utf-8"
+            }
+        }
+    ],
+    "transformers": [
+        {
+            "id": "csv_transformer",
+            "class_path": "plugins.files.csv_data_source.CSVDataCleaner",
+            "params": {}
+        }
+    ],
+    "loaders": [
+        {
+            "id": "csv_loader",
+            "class_path": "plugins.files.csv_data_source.CSVDataLoader",
+            "params": {
+                "db_name": "data/sql/default.sqlite",
+                "table_name":""
+            }
+        }
+    ]
+}
